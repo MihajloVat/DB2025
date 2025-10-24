@@ -1,58 +1,67 @@
 CREATE TABLE IF NOT EXISTS Location (
-address TEXT PRIMARY KEY NOT NULL, --think of TEXT
+address TEXT PRIMARY KEY NOT NULL, 
 is_open BOOL NOT NULL,
 profit DECIMAL NOT NULL, --derived 
 staff_count SMALLINT NOT NULL --derived 
 );
 
 CREATE TABLE IF NOT EXISTS Document(
-title TEXT NOT NULL, --think of TEXT
-loc_address TEXT REFERENCES Location(address) ON DELETE CASCADE, --think of TEXT,NOT NULL,CASCADE?
+title TEXT NOT NULL, 
+loc_address TEXT NOT NULL REFERENCES Location(address) ON DELETE CASCADE, 
 issue_date DATE,
 expire_date DATE,
 is_active_m BOOLEAN, --think of m|d
 PRIMARY KEY(title,loc_address)
 );
 
+CREATE TYPE pos_name AS ENUM ('бариста','прибиральник','адміністратор','кухар');
+
 CREATE TABLE IF NOT EXISTS Employee(
-full_name TEXT PRIMARY KEY NOT NULL, --think of TEXT
-age SMALLINT NOT NULL, --think if CHECK
+full_name TEXT PRIMARY KEY NOT NULL, --think of structure
+age SMALLINT NOT NULL CHECK (age >= 16), 
 shift TEXT NOT NULL, --think of TYPE
-position_ TEXT NOT NULL, --think of naming, enum, think of TYPE
-salary INT NOT NULL, --think of TYPE
-phone_number TEXT NOT NULL --think of TYPE and blueprint
+position_ pos_name,
+salary INT NOT NULL CHECK (salary > 0), 
+phone_number VARCHAR(13) NOT NULL CHECK (phone_number ~ '^\+380\d{9}$')
 );
 
 CREATE TABLE IF NOT EXISTS EmployeeDoc(
-doc_title TEXT NOT NULL, --think of type?
-loc_address TEXT NOT NULL, --think of type?
-full_name TEXT NOT NULL, --think of type?
+doc_title TEXT NOT NULL, 
+loc_address TEXT NOT NULL,
+full_name TEXT NOT NULL, --think of blueprint, type
+
 FOREIGN KEY (doc_title,loc_address)
  REFERENCES Document(title,loc_address) ON DELETE CASCADE,
+ 
 FOREIGN KEY (full_name)
  REFERENCES Employee(full_name) ON DELETE CASCADE,
-PRIMARY KEY(doc_title,loc_address,full_name) --think of style and ON CASCADE
+ 
+PRIMARY KEY(doc_title,loc_address,full_name) 
 );
 
 CREATE TABLE IF NOT EXISTS Menu(
 title TEXT PRIMARY KEY NOT NULL --think of TEXT
-); --does it make any sense?
+); 
 
 CREATE TABLE IF NOT EXISTS Item(
 title TEXT PRIMARY KEY NOT NULL, --think of TEXT
 current_price DECIMAL NOT NULL,
-recipe TEXT --think of TYPE
+recipe TEXT 
 );
 
 CREATE TABLE IF NOT EXISTS SoldOnDay(
 date DATE NOT NULL,
 item_title TEXT NOT NULL, --think of type?
 price DECIMAL NOT NULL,
-amount SMALLINT NOT NULL, --think of TYPE
+amount SMALLINT NOT NULL CHECK (amount >= 0), 
 PRIMARY KEY(date,item_title)
 );
 
 --НЕ ЗАБУДЬ ФОРЕЙНИ!
+--ПЕРЕПИСАТИ НА АЙДІШКИ
+--Окремо ім'я і призвище?
+--зміни шифт?
+--ПОДУМАЙ ПРО ЮНІК, ЧЕКИ І ДЕФОЛТИ
 
 --EXEMPLES OF CONTENT
 
