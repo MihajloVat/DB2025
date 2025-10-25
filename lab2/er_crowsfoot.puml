@@ -1,0 +1,71 @@
+@startuml
+!theme plain
+hide circle
+hide methods
+
+entity "Location" as loc {
+*loc_id : int <<PK>>
+address : string
+staff_count : int <<d>>
+is_open : bool
+}
+
+entity "Document" as doc {
+*doc_id : int <<pk>>
+*loc_id : int <<pk,FK>>
+title : string
+issue_date : date <<o>>
+expire_date : date <<o>>
+is_active : bool <<d|m>>
+}
+
+entity "Employee" as emp {
+*emp_id : int <<PK>>
+full_name : string
+age : int
+shift : string
+position : string
+salary : int
+phone : string
+}
+
+entity "Menu" as menu {
+*menu_id : int <<PK>>
+title : string
+}
+
+entity "Item" as item {
+item_id : int <<PK>>
+title : string
+current_price : decimal
+recipe : string <<o>>
+}
+
+entity "SoldOnDay" as sold {
+*sold_id : int <<pk>>
+*item_id : int <<pk,FK>>
+date : date
+item_title : string
+price : decimal
+amount : int
+}
+
+entity "EmployeeDoc" as empDoc {
+*doc_id : int <<pk,FK>>
+*loc_id : int <<pk,FK>>
+*emp_id : int <<pk,Fk>>
+}
+
+loc ||--|{ doc : "requires"
+loc }|--|{ menu : "has"
+loc ||--o{ emp : "has"
+menu ||--|{ item : "includes"
+item ||--o{ sold : "was"
+doc ||--o{ empDoc
+empDoc }o--|| emp
+
+@enduml
+
+
+
+

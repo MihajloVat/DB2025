@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS Location (
 address TEXT PRIMARY KEY NOT NULL, 
 is_open BOOL NOT NULL,
-profit DECIMAL NOT NULL, --derived 
 staff_count SMALLINT NOT NULL --derived 
 );
 
@@ -68,9 +67,9 @@ PRIMARY KEY(date,item_title)
 --location
 INSERT INTO Location 
 VALUES
-('Вул. Іво Бобула 14',true, 10000,3),
-('Пр. Кевіна Холланда 5\б',true, 30000,3),
-('Пл. Культури 10',false, 300,2)
+('Вул. Іво Бобула 14',true,3),
+('Пр. Кевіна Холланда 5\б',true,3),
+('Пл. Культури 10',false,2)
 ON CONFLICT (address) DO NOTHING;
 
 --document
