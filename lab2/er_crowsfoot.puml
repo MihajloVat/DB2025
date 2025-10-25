@@ -43,9 +43,8 @@ recipe : string <<o>>
 
 entity "SoldOnDay" as sold {
 *sold_id : int <<pk>>
-*item_id : int <<pk,FK>>
+*item_title : string <<pk>>
 date : date
-item_title : string
 price : decimal
 amount : int
 }

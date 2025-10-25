@@ -1,22 +1,25 @@
 CREATE TABLE IF NOT EXISTS Location (
-address TEXT PRIMARY KEY NOT NULL, 
+loc_id SERIAL PRIMARY KEY
+address TEXT NOT NULL, 
 is_open BOOL NOT NULL,
 staff_count SMALLINT NOT NULL --derived 
 );
 
 CREATE TABLE IF NOT EXISTS Document(
+doc_id SERIAL 
+loc_id INT NOT NULL REFERENCES Location(loc_id) ON DELETE CASCADE, 
 title TEXT NOT NULL, 
-loc_address TEXT NOT NULL REFERENCES Location(address) ON DELETE CASCADE, 
 issue_date DATE,
 expire_date DATE,
 is_active_m BOOLEAN, --think of m|d
-PRIMARY KEY(title,loc_address)
+PRIMARY KEY(doc_id,loc_id)
 );
 
 CREATE TYPE pos_name AS ENUM ('бариста','прибиральник','адміністратор','кухар');
 
 CREATE TABLE IF NOT EXISTS Employee(
-full_name TEXT PRIMARY KEY NOT NULL, --think of structure
+emp_id SERIAL PRIMARY KEY
+full_name TEXT  NOT NULL, --think of structure
 age SMALLINT NOT NULL CHECK (age >= 16), 
 shift TEXT NOT NULL, --think of TYPE
 position_ pos_name,
@@ -25,41 +28,45 @@ phone_number VARCHAR(13) NOT NULL CHECK (phone_number ~ '^\+380\d{9}$')
 );
 
 CREATE TABLE IF NOT EXISTS EmployeeDoc(
-doc_title TEXT NOT NULL, 
-loc_address TEXT NOT NULL,
-full_name TEXT NOT NULL, --think of blueprint, type
+doc_id TEXT NOT NULL, 
+loc_id TEXT NOT NULL,
+emp_id TEXT NOT NULL, 
 
-FOREIGN KEY (doc_title,loc_address)
- REFERENCES Document(title,loc_address) ON DELETE CASCADE,
+FOREIGN KEY (doc_id ,loc_id)
+ REFERENCES Document(doc_id,loc_id) ON DELETE CASCADE,
  
-FOREIGN KEY (full_name)
- REFERENCES Employee(full_name) ON DELETE CASCADE,
+FOREIGN KEY (emp_id)
+ REFERENCES Employee(emp_id) ON DELETE CASCADE,
  
-PRIMARY KEY(doc_title,loc_address,full_name) 
+PRIMARY KEY(doc_id ,loc_id,emp_id) 
 );
 
 CREATE TABLE IF NOT EXISTS Menu(
-title TEXT PRIMARY KEY NOT NULL --think of TEXT
+menu_id SERIAL PRIMARY KEY
+title TEXT NOT NULL --think of TEXT
 ); 
 
 CREATE TABLE IF NOT EXISTS Item(
-title TEXT PRIMARY KEY NOT NULL, --think of TEXT
+item_id SERIAL PRIMARY KEY
+title TEXT NOT NULL, --think of TEXT
 current_price DECIMAL NOT NULL,
 recipe TEXT 
 );
 
 CREATE TABLE IF NOT EXISTS SoldOnDay(
-date DATE NOT NULL,
+sold_id SERIAL
 item_title TEXT NOT NULL, --think of type?
+date DATE NOT NULL,
 price DECIMAL NOT NULL,
 amount SMALLINT NOT NULL CHECK (amount >= 0), 
-PRIMARY KEY(date,item_title)
+PRIMARY KEY(sold_id,item_title)
 );
 
 --НЕ ЗАБУДЬ ФОРЕЙНИ!
 --ПЕРЕПИСАТИ НА АЙДІШКИ
 --Окремо ім'я і призвище?
 --зміни шифт?
+--think on NOT NULL on SERIAL
 --ПОДУМАЙ ПРО ЮНІК, ЧЕКИ І ДЕФОЛТИ
 
 --EXEMPLES OF CONTENT
