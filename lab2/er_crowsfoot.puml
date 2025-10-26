@@ -4,59 +4,71 @@ hide circle
 hide methods
 
 entity "Location" as loc {
-*loc_id : int <<PK>>
-address : string
-staff_count : int <<d>>
-is_open : bool
+*loc_id : SERIAL <<PK>>
+address : TEXT
+city : TEXT
+is_open : BOOL
 }
 
 entity "Document" as doc {
-*doc_id : int <<pk>>
-*loc_id : int <<pk,FK>>
-title : string
-issue_date : date <<o>>
-expire_date : date <<o>>
-is_active : bool <<d|m>>
+*doc_id : SERIAL <<PK>>
+#loc_id : INT <<FK>>
+title : TEXT
+issue_date : DATE
+active_from : DATE <<o>>
+expire_date : DATE <<o>>
+is_denied : BOOL <<def:false>>
 }
 
 entity "Employee" as emp {
-*emp_id : int <<PK>>
-full_name : string
-age : int
-shift : string
-position : string
-salary : int
-phone : string
+*emp_id : INT <<PK>>
+#loc_id : INT <<FK>>
+surname : TEXT
+name : TEXT
+birthday : DATE
+shift : TEXT
+position : ENUM[i]
+salary : INT
+phone : VARCHAR
 }
 
 entity "Menu" as menu {
-*menu_id : int <<PK>>
-title : string
+*menu_id : SERIAL <<PK>>
+title : VARCHAR
+}
+
+entity "LocMenu" as locMenu{
+*menu_id : INT <<pk>>
+*loc_id : INT <<pk>>
 }
 
 entity "Item" as item {
-item_id : int <<PK>>
-title : string
-current_price : decimal
-recipe : string <<o>>
+*item_id : INT <<PK>>
+#menu_id : INT <<FK>>
+title : VARCHAR
+current_price : NUMERIC
+recipe : TEXT <<o>>
 }
 
 entity "SoldOnDay" as sold {
-*sold_id : int <<pk>>
-*item_title : string <<pk>>
-date : date
-price : decimal
-amount : int
+*sold_id : SERIAL <<PK>>
+#item_id : INT <<FK>> <<o>>
+item_title : VARCHAR
+loc_address : TEXT
+city : TEXT
+price : NUMERIC
+amount : SMALLINT
+date : DATE <<def:CURRENT_DATE>>
 }
 
 entity "EmployeeDoc" as empDoc {
 *doc_id : int <<pk,FK>>
-*loc_id : int <<pk,FK>>
 *emp_id : int <<pk,Fk>>
 }
 
 loc ||--|{ doc : "requires"
-loc }|--|{ menu : "has"
+loc ||--|{ locMenu
+locMenu }|--|| menu
 loc ||--o{ emp : "has"
 menu ||--|{ item : "includes"
 item ||--o{ sold : "was"
