@@ -138,14 +138,21 @@
 ---
 
 ## 🖼️ 4. Cкріншоти табличок
-
+* location <br>
 ![location](screenshots/loc.png) <br>
+* employee <br>
 ![employee](screenshots/emp.png) <br>
+* document <br>
 ![document](screenshots/doc.png) <br>
+* employeeDocument <br>
 ![employeeDocument](screenshots/empdoc.png) <br>
+* locMenu <br>
+  ![locMenu](screenshots/locmenu.png) <br>
+* menu <br>
 ![menu](screenshots/menu.png) <br>
-![locMenu](screenshots/locmenu.png) <br>
+* item <br>
 ![item](screenshots/item.png) <br> 
+* soldOnDay <br>
 ![sold](screenshots/sold.png) 
 
 
