@@ -12,8 +12,8 @@ VALUES
 
 INSERT INTO Tasks (proj_id, title, descr, prio, dline, stat)
 VALUES
-(1, 'Implement Frontend', 'Develop the React interface', 2, '2025-02-10T00:00:00', 'active'),
-(1, 'Setup Backend', NULL, 1, '2025-02-20T00:00:00+00', 'active'),
+(1, 'Implement Frontend', 'Develop the React interface', 2, '2025-02-10T00:00:00', 'done'),
+(1, 'Setup Backend', NULL, 1, '2025-02-20T00:00:00+00', 'done'),
 (2, 'Create App Layout', 'Basic UI structure for mobile app', 3, NULL, 'active');
 
 
