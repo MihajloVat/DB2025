@@ -1,8 +1,8 @@
 INSERT INTO Projects (title, descr, s_date, dline)
 VALUES 
-('Website Redesign', 'Update the company website with new design', DEFAULT, '2025-03-15'),
+('Website Redesign', 'Update the company website with new design', DEFAULT, '2025-03-15T00:00:00'),
 ('Mobile App', 'Create an Android and iOS app for tracking habits', '2025-02-01', NULL),
-('Marketing Campaign', NULL, '2025-03-01', '2025-04-10');
+('Marketing Campaign', NULL, '2025-03-01', '2025-04-10T00:00:00');
 
 INSERT INTO Users (team_role, fullname, email)
 VALUES
@@ -12,9 +12,9 @@ VALUES
 
 INSERT INTO Tasks (proj_id, title, descr, prio, dline, stat)
 VALUES
-(1, 'Implement Frontend', 'Develop the React interface', 2, '2025-02-10', 'active'),
-(1, 'Setup Backend', NULL, 1, '2025-02-20', 'planned'),
-(2, 'Create App Layout', 'Basic UI structure for mobile app', 3, NULL, 'paused');
+(1, 'Implement Frontend', 'Develop the React interface', 2, '2025-02-10T00:00:00', 'active'),
+(1, 'Setup Backend', NULL, 1, '2025-02-20T00:00:00+00', 'active'),
+(2, 'Create App Layout', 'Basic UI structure for mobile app', 3, NULL, 'active');
 
 
 INSERT INTO Assignment (user_id, task_id) VALUES (1, 1);

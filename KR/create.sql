@@ -3,10 +3,10 @@ CREATE TABLE IF NOT EXISTS Projects(
     title VARCHAR (32) NOT NULL,
     descr TEXT,
     s_date DATE DEFAULT CURRENT_DATE, --гадаю, точна дата початку не обов'язкова
-    dline TIMESTAMP  --а от дедлайну обов'язкова
+    dline TIMESTAMP --а от дедлайну обов'язкова
 );
 
-CREATE TYPE statuses AS ENUM ('active','paused','done','canceled','planned');
+CREATE TYPE statuses AS ENUM ('active','done','canceled');
 
 CREATE TABLE IF NOT EXISTS Tasks(
     task_id SERIAL PRIMARY KEY,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Tasks(
     title VARCHAR (32) NOT NULL,
     descr TEXT,
     prio SMALLINT CHECK (prio >= 0),
-    dline DATE,
+    dline TIMESTAMP, 
     stat statuses
 );
 
