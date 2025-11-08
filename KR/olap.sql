@@ -3,6 +3,8 @@ SELECT TO_TIMESTAMP(AVG(EXTRACT(EPOCH FROM dline))) AT TIME ZONE 'UTC' AS avg_de
 FROM Tasks
 GROUP BY prio;
 
+-----
+
 SELECT user_id, done_tasks
 FROM(
   SELECT user_id, COUNT(task_id) as done_tasks, 
@@ -14,6 +16,9 @@ FROM(
 	  WHERE stat = 'done') 
    GROUP BY user_id)
 WHERE rank = 1;
+--оскільки у бази нема дати виконання задачі, мабуть завдання трохи не точне
+
+-----
 
 SELECT proj_id,(done_tasks*1.0/all_tasks) as fraction,
 RANK() OVER (ORDER BY done_tasks*1.0/all_tasks DESC) as rank
@@ -24,6 +29,18 @@ COUNT(task_id) as all_tasks
 FROM Tasks
 GROUP BY proj_id
 );
+
+-----
+
+WITH select_undone AS(
+SELECT task_id, dline
+FROM Tasks
+WHERE stat <> 'done'
+)
+
+SELECT * 
+FROM select_undone
+WHERE dline < CURRENT_TIMESTAMP
 
 
 
