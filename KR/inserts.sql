@@ -1,6 +1,6 @@
 INSERT INTO Projects (title, descr, s_date, dline)
 VALUES 
-('Website Redesign', 'Update the company website with new design', NULL , '2025-03-15'),
+('Website Redesign', 'Update the company website with new design', DEFAULT, '2025-03-15'),
 ('Mobile App', 'Create an Android and iOS app for tracking habits', '2025-02-01', NULL),
 ('Marketing Campaign', NULL, '2025-03-01', '2025-04-10');
 
