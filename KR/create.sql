@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS Projects(
     title VARCHAR (32) NOT NULL,
     descr TEXT,
     s_date DATE DEFAULT CURRENT_DATE, --гадаю, точна дата початку не обов'язкова
-    dline TIMESTAMP --а от дедлайну обов'язкова
+    dline TIMESTAMP --а от дедлайну обов'язкова--
 );
 
 CREATE TYPE statuses AS ENUM ('active','done','canceled');
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Tasks(
     title VARCHAR (32) NOT NULL,
     descr TEXT,
     prio SMALLINT CHECK (prio >= 0),
-    dline TIMESTAMP, 
+    dline TIMESTAMP, --
     stat statuses
 );
 
@@ -36,5 +36,5 @@ CREATE TABLE IF NOT EXISTS Comments(
     user_id INT NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
     task_id INT NOT NULL REFERENCES Tasks(task_id) ON DELETE CASCADE,
     comm TEXT NOT NULL,
-    tstamp TIMESTAMP DEFAULT NOW()
+    tstamp TIMESTAMP DEFAULT NOW() --
 );
