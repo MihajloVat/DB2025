@@ -97,7 +97,24 @@ FROM employee
 GROUP BY loc_id
 ORDER BY C DESC 
 LIMIT 1
-)
+);
+
+--Багатотаблична агрегація
+
+--порівняти актуальні ціни, та за які продавались (серед актуальних позицій)
+-- + побачити кількість проданої позиції
+SELECT item.title, soldonday.date_, item.current_price, soldonday.price AS "sold_prise",
+COUNT(*) OVER (PARTITION BY item.title) as "Кількість"
+FROM item
+LEFT JOIN soldonday ON item.item_id = soldonday.item_id
+ORDER BY item.title;
+
+--відношення робітників до документів + 
+SELECT CONCAT( employee.surname,' ',employee.name_) AS full_name, STRING_AGG(document.title,',  ') as "Документи"
+FROM document
+INNER JOIN employeedoc ON employeedoc.doc_id = document.doc_id
+INNER JOIN employee ON employeedoc.emp_id = employee.emp_id
+GROUP BY full_name
 
 
 
