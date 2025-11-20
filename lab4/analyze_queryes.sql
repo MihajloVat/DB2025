@@ -56,11 +56,51 @@ HAVING loc_city in ('Харків','Вінниця');
 
 --joins
 
-SELECT location.address, locmenu.menu_id--, menu.title
-FROM locmenu
-INNER JOIN location ON locmenu.loc_id = location.loc_id
---INNER JOIN menu ON menu.menu_id = locmenu.menu_id;
---які меню за якими локаціями доступні
+--дізнатись який товар належить якому меню
+SELECT menu.title AS "Меню", item.title AS "Позиція"
+FROM item
+INNER JOIN menu ON item.menu_id = menu.menu_id;
+
+--порівняти актуальні ціни, та за які продавались (серед актуальних позицій)
+SELECT item.title, soldonday.date_, item.current_price, soldonday.price AS "sold_prise"
+FROM item
+LEFT JOIN soldonday ON item.item_id = soldonday.item_id
+ORDER BY item.title;
+
+--відношення робітників до документів
+SELECT employee.surname, document.title
+FROM document
+INNER JOIN employeedoc ON employeedoc.doc_id = document.doc_id
+INNER JOIN employee ON employeedoc.emp_id = employee.emp_id;
+
+--Підзапити
+
+--всі позиції, що продались хоч раз
+SELECT *
+FROM item
+WHERE item_id IN (SELECT item_id FROM soldonday WHERE item_id IS NOT NULL);
+
+--позиції меню, що продавались дорожче за свою поточну ціну
+SELECT title, current_price
+FROM item
+WHERE current_price < (
+SELECT MAX(price)
+FROM soldonday
+WHERE item_title = item.title);
+
+--документи щодо локації, де працює найбільше співробітників
+SELECT *
+FROM document
+WHERE loc_id = (
+SELECT COUNT(*) AS C
+FROM employee
+GROUP BY loc_id
+ORDER BY C DESC 
+LIMIT 1
+)
+
+
+
 
 
 
