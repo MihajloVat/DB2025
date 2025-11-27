@@ -39,8 +39,7 @@ name_ TEXT  NOT NULL,
 birthday DATE NOT NULL CHECK (birthday <= CURRENT_DATE), 
 position_ pos_name,
 salary INT NOT NULL CHECK (salary > 0), 
-phone_number CHAR(13) NOT NULL CHECK (phone_number ~ '^\+380\d{9}$') UNIQUE,
-UNIQUE(surname, name_, birthday, loc_id)
+phone_number CHAR(13) NOT NULL CHECK (phone_number ~ '^\+380\d{9}$') UNIQUE
 );
 
 INSERT INTO Employee (loc_id, surname, name_, birthday,position_, salary, phone_number)
@@ -140,7 +139,7 @@ loc_city TEXT NOT NULL,
 price NUMERIC(7,2) NOT NULL CHECK (price > 0),
 amount SMALLINT NOT NULL CHECK (amount > 0), 
 date_ DATE NOT NULL CHECK (date_ <= CURRENT_DATE) default CURRENT_DATE,
-UNIQUE(item_title,loc_address,date_)
+UNIQUE(item_title,loc_address,loc_city,date_)
 );
 
 INSERT INTO SoldOnDay (item_id, item_title, loc_address,loc_city, price, amount, date_) 

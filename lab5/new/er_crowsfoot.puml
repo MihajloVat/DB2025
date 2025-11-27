@@ -81,7 +81,7 @@ menu ||--|{ item : "includes"
 item ||--o{ sold : "was"
 doc ||--o{ empDoc
 empDoc }o--|| emp
-emp ||--o{ shift
+emp ||--o{ shift : "has"
 
 @enduml
 
