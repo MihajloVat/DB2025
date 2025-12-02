@@ -345,4 +345,4 @@ VALUES
 
 ### ER-діаграма
 
-![diagram](./new/DB_ERD.png)
+![diagram](./new/ERD_DB.png)
