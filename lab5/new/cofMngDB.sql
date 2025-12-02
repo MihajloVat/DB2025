@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS Location (
+ CREATE TABLE IF NOT EXISTS Location (
 loc_id SERIAL PRIMARY KEY,
 address TEXT NOT NULL,
 city TEXT NOT NULL,
@@ -139,7 +139,6 @@ loc_city TEXT NOT NULL,
 price NUMERIC(7,2) NOT NULL CHECK (price > 0),
 amount SMALLINT NOT NULL CHECK (amount > 0), 
 date_ DATE NOT NULL CHECK (date_ <= CURRENT_DATE) default CURRENT_DATE,
-UNIQUE(item_title,loc_address,loc_city,date_)
 );
 
 INSERT INTO SoldOnDay (item_id, item_title, loc_address,loc_city, price, amount, date_) 
