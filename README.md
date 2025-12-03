@@ -8,3 +8,4 @@
 - [Лабораторна 3](lab3/README.md) — Робота з CRUD запитами до бази даних 
 - [Лабораторна 4](lab4/README.md) — Аналітичні запити (OLAP) 
 - [Лабораторна 5](lab5/README.md) — Нормалізація PostgreSQL схеми 
+- [Лабораторна 6](https://github.com/MihajloVat/Tasker_db_coursach/blob/main/migration-notes.md) — Робота з Prisma
