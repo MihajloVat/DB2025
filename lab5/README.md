@@ -6,7 +6,6 @@
 ![diagram](./old/DB_ERD.png)
 
 ### Список таблиць (оригінальні DDL)
-Скопіюй сюди DDL, який був у лабораторній роботі 2 (або коротко переліч DDL для кожної таблиці).
 
 ```sql
 CREATE TABLE IF NOT EXISTS Location (
